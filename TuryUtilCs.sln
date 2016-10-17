@@ -1,0 +1,46 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuryUtilCs.Logger", "TuryUtilCs.Logger\TuryUtilCs.Logger.csproj", "{92C35486-3610-4542-A883-3C787836D9D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuryUtilCs.Mathmatics", "TuryUtilCs.Mathmatics\TuryUtilCs.Mathmatics.csproj", "{D724FF6A-40CD-42AC-B63E-76C64EE705B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuryUtilCs.Mathmatics_Tests", "TuryUtilCs.Mathmatics_Tests\TuryUtilCs.Mathmatics_Tests.csproj", "{704E99AA-0099-4949-94A5-258D35F45396}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuryUtilCs.PointStructures", "TuryUtilCs.PointStructures\TuryUtilCs.PointStructures.csproj", "{335651F6-8CD2-4AE2-B0E7-85AD850FD54C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuryUtilCs.PointStructures_Tests", "TuryUtilCs.PointStructures_Tests\TuryUtilCs.PointStructures_Tests.csproj", "{201481D5-2D51-4D80-A9DA-B739E9BAECD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92C35486-3610-4542-A883-3C787836D9D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C35486-3610-4542-A883-3C787836D9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C35486-3610-4542-A883-3C787836D9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C35486-3610-4542-A883-3C787836D9D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D724FF6A-40CD-42AC-B63E-76C64EE705B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D724FF6A-40CD-42AC-B63E-76C64EE705B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D724FF6A-40CD-42AC-B63E-76C64EE705B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D724FF6A-40CD-42AC-B63E-76C64EE705B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{704E99AA-0099-4949-94A5-258D35F45396}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{704E99AA-0099-4949-94A5-258D35F45396}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{704E99AA-0099-4949-94A5-258D35F45396}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{704E99AA-0099-4949-94A5-258D35F45396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335651F6-8CD2-4AE2-B0E7-85AD850FD54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335651F6-8CD2-4AE2-B0E7-85AD850FD54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335651F6-8CD2-4AE2-B0E7-85AD850FD54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335651F6-8CD2-4AE2-B0E7-85AD850FD54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{201481D5-2D51-4D80-A9DA-B739E9BAECD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{201481D5-2D51-4D80-A9DA-B739E9BAECD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{201481D5-2D51-4D80-A9DA-B739E9BAECD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{201481D5-2D51-4D80-A9DA-B739E9BAECD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
