@@ -687,6 +687,13 @@ namespace TuryUtilCs.Mathmatics
             return Eigenvectors(eigenvalueAccuracy, 1, false);
         }
 
+        //DOKU
+        public Matrix[] Eigenvectors(int eigenvalueAccuracy, int scalingFactor,
+            bool forceFindReal)
+        {
+            return Eigenvectors(eigenvalueAccuracy, scalingFactor, forceFindReal, false);
+        }
+
         /// <summary>
         /// Calculates the Matrix's Eigenvectors.
         /// </summary>
@@ -710,7 +717,8 @@ namespace TuryUtilCs.Mathmatics
         /// Array of eigenvectors, in the order of the sizes of
         /// their eigenvalues (smallest eigenvalue first, largest last)
         /// </returns>
-        public Matrix[] Eigenvectors(int eigenvalueAccuracy, int scalingFactor, bool forceFindReal)
+        public Matrix[] Eigenvectors(int eigenvalueAccuracy, 
+            int scalingFactor, bool forceFindReal, bool scaleToEigenvalues)
         {
             double[] eigenvalues = null;
 
@@ -761,9 +769,9 @@ namespace TuryUtilCs.Mathmatics
 
             // Sort the eigenvalues, so the smallest will be first
             // and the larges will be last.
-            List<double> tmp = eigenvalues.ToList();
-            tmp.Sort();
-            eigenvalues = tmp.ToArray();
+            List<double> tmpEvalList = eigenvalues.ToList();
+            tmpEvalList.Sort();
+            eigenvalues = tmpEvalList.ToArray();
 
             // array of eigenvectors (will be filled by the next step)
             Matrix[] vectors = new Matrix[eigenvalues.Length];
@@ -790,6 +798,21 @@ namespace TuryUtilCs.Mathmatics
                 copy = copy.AddColumn(Columns + 1);
                 vectors[a] = new Matrix(new LinearSystem(copy).
                     SolveGauss(eigenvalueAccuracy));
+
+                if (scaleToEigenvalues)
+                {
+                    if(vectors.Length != 3)
+                    {
+                        throw new NotImplementedException(
+                            "Scaling of eigenvectors has only been implemented for 3x3-Matrices.");
+                    }
+                    
+                    // scale the eigenvectors to the length of
+                    // their corresponding eigenvalues
+                    Vector tmpVec = vectors[a].ToVector();
+                    tmpVec = tmpVec.Normalize().MultiplySkalar(eigenvalues[a]);
+                    vectors[a] = new Matrix(tmpVec);
+                }
             }
             return vectors;
         }

@@ -24,32 +24,46 @@ using System.Threading.Tasks;
 
 namespace TuryUtilCs.Mathmatics.Geometry
 {
-    //DOKU
+    /// <summary>
+    /// A cuboid in 3D-space.
+    /// </summary>
     public class Cuboid
     {
         //HOT UNIT TESTS
 
         #region fields
-        //DOKU
+        /// <summary>
+        /// Center point of the cuboid.
+        /// </summary>
         private Point _center;
 
-        //DOKU
+        /// <summary>
+        /// Dimensions of the cuboid in three linear independent
+        /// directions ("principal components")
+        /// </summary>
         private Vector[] _dimensions = new Vector[3];
         #endregion
 
         #region properties manually
-        //DOKU
+        /// <summary>
+        /// Center point of the cuboid.
+        /// </summary>
         public Point Center
         {
             get { return _center; }
         }
 
-        //DOKU
+        /// <summary>
+        /// Dimensions of the cuboid.
+        /// </summary>
         public Vector[] Dimensions
         {
             get { return _dimensions; }
         }
 
+        /// <summary>
+        /// Cuboid's volume.
+        /// </summary>
         public double Volume
         {
             get
@@ -64,12 +78,24 @@ namespace TuryUtilCs.Mathmatics.Geometry
         #region properties automatically
         #endregion
 
-        //DOKU
+        /// <summary>
+        /// Creates a Cuboid as the minimal bounding box of a point set.
+        /// </summary>
+        /// <param name="pts">unorganised point set</param>
+        /// <param name="accuracy">
+        /// Amount of correctly computed decimals when computing the
+        /// eigenvalues of the correlation matrix
+        /// </param>
+        /// <param name="eigenvalueScalingFactor">
+        /// Matrix scaling factor. Used by the numeric eigenvalue
+        /// computation algorithm. The computation might be faster,
+        /// but the algorithm might be unstable if this value is
+        /// not 1.
+        /// </param>
+        /// <returns>Minimimal bounding cuboid</returns>
         public static Cuboid BoundingBoxFromPCA(Point[] pts,
             int accuracy, int eigenvalueScalingFactor)
         {
-            //HOT DRY: most of the stuff below was just copied from Plane.cs
-            // redundancy, see note in Plane.cs
             #region information, description
             // Calculation of planes like this according to Hoppe et al. 1992
             // Information about the algorithm gathered in
@@ -103,8 +129,8 @@ namespace TuryUtilCs.Mathmatics.Geometry
             // 
             //      R = Y'^ *  Y'       T'^ ... transposed of T'
             //
-            //  The eigenvector to the smallest eigenvalue of this matrix
-            //  is the normal of the plane
+            //  The eigenvectors of R are the principal components of the
+            //  minimal surrounding box.
             #endregion
 
 
@@ -120,12 +146,17 @@ namespace TuryUtilCs.Mathmatics.Geometry
                 normY[i, 2] = current.Z - center.Z;
             }
             correlationMatrix = Matrix.Multiply(normY.Transposed(), normY);
+
+            // The eigenvectors are scaled to their eigenvalues to make shure,
+            // that they have the size of the point set. (second parameter=true)
             Matrix[] eigenvectors = correlationMatrix.Eigenvectors(
-                accuracy, eigenvalueScalingFactor, true);
+                accuracy, eigenvalueScalingFactor, true, true);
+
             Vector[] normals = new Vector[3];
             for (int i = 0; i < 3; i++)
             {
-                // only half the dimensions
+                // eigenvectors are only only half the dimensions; 
+                // hence have to multiply by 2
                 normals[i] = eigenvectors[i].ToVector().MultiplySkalar(2);
             }
 
@@ -133,7 +164,11 @@ namespace TuryUtilCs.Mathmatics.Geometry
         }
 
         #region constructors
-        //DOKU
+        /// <summary>
+        /// Creates a cuboid by it's center and it's dimensions.
+        /// </summary>
+        /// <param name="center">Center of the Cuboid</param>
+        /// <param name="dimensions">Dimensions of the cuboid.</param>
         public Cuboid(Point center, Vector[] dimensions)
         {
             this._center = center;
@@ -164,9 +199,9 @@ namespace TuryUtilCs.Mathmatics.Geometry
             {
                 return (v1.Length().CompareTo(v2.Length()));
             });
-            mainPlanes[0] = new Plane(Center.ToVector(), dimensionsForSort[3]);
-            mainPlanes[1] = new Plane(Center.ToVector(), dimensionsForSort[2]);
-            mainPlanes[2] = new Plane(Center.ToVector(), dimensionsForSort[1]);
+            mainPlanes[0] = new Plane(Center.ToVector(), dimensionsForSort[2]);
+            mainPlanes[1] = new Plane(Center.ToVector(), dimensionsForSort[1]);
+            mainPlanes[2] = new Plane(Center.ToVector(), dimensionsForSort[0]);
             return mainPlanes;
         }
     }
