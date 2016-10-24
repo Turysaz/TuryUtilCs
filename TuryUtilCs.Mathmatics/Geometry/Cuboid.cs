@@ -121,11 +121,12 @@ namespace TuryUtilCs.Mathmatics.Geometry
             }
             correlationMatrix = Matrix.Multiply(normY.Transposed(), normY);
             Matrix[] eigenvectors = correlationMatrix.Eigenvectors(
-                accuracy, eigenvalueScalingFactor, true);
+                accuracy, eigenvalueScalingFactor, true, true);
             Vector[] normals = new Vector[3];
             for (int i = 0; i < 3; i++)
             {
-                // only half the dimensions
+                // eigenvectors are only only half the dimensions; 
+                // hence have to multiply by 2
                 normals[i] = eigenvectors[i].ToVector().MultiplySkalar(2);
             }
 
@@ -164,9 +165,9 @@ namespace TuryUtilCs.Mathmatics.Geometry
             {
                 return (v1.Length().CompareTo(v2.Length()));
             });
-            mainPlanes[0] = new Plane(Center.ToVector(), dimensionsForSort[3]);
-            mainPlanes[1] = new Plane(Center.ToVector(), dimensionsForSort[2]);
-            mainPlanes[2] = new Plane(Center.ToVector(), dimensionsForSort[1]);
+            mainPlanes[0] = new Plane(Center.ToVector(), dimensionsForSort[2]);
+            mainPlanes[1] = new Plane(Center.ToVector(), dimensionsForSort[1]);
+            mainPlanes[2] = new Plane(Center.ToVector(), dimensionsForSort[0]);
             return mainPlanes;
         }
     }

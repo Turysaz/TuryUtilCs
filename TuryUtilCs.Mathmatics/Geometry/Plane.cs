@@ -264,63 +264,8 @@ namespace TuryUtilCs.Mathmatics.Geometry
         /// <returns>best fitting Plane</returns>
         public static Plane NewFromPrincipalComponentAnalysis(Point[] pts, int accuracy, int eigenvalueScalingFactor)
         {
-            // HOT redundancy in Cuboid.cs
-            // -> idea: create cuboid here and then extract plane
-
-            #region information, description
-            // Calculation of planes like this according to Hoppe et al. 1992
-            // Information about the algorithm gathered in
-            //      
-            //      J. Hartung, "Multivariante Statistik"
-            //      Oldenburg-Verlag München 2007, 7. Auflage
-            //      Seite 505 ff.
-            //
-            //  Description of the calculation:
-            //  ===============================
-            //
-            //  Points are characteristics matrix Y
-            //
-            //      Y = y_ij        i ... point
-            //                      j ... component(x,y,z)
-            //  
-            //  Defining normalized characteristics matrix Y'
-            //  
-            //      Y' = y'_ij
-            //  with
-            //      y'_ij = ( y_ij - y*_j ) / s_j
-            //                      
-            //          y*_j = mean of this component of all points
-            //          s_j  = standard deviation of this component
-            //
-            //  REMARK 03.08.2016: I'll leave the division by s_j out of this...
-            //                     So it's y'_ij = y_ij - y*_j for now
-            //
-            //
-            //  After that, the empirical correlation matrix is formed
-            // 
-            //      R = Y'^ *  Y'       T'^ ... transposed of T'
-            //
-            //  The eigenvector to the smallest eigenvalue of this matrix
-            //  is the normal of the plane
-            #endregion
-
-            Matrix normY = new Matrix(pts.Length, 3);
-            Matrix correlationMatrix;
-            Point med = Geometry.Point.Center(pts);
-            Point current;
-            for (int i = 0; i < pts.Length; i++)
-            {
-                current = pts[i];
-                normY[i, 0] = current.X - med.X;
-                normY[i, 1] = current.Y - med.Y;
-                normY[i, 2] = current.Z - med.Z;
-            }
-            correlationMatrix = Matrix.Multiply(normY.Transposed(), normY);
-            Vector normal = correlationMatrix.Eigenvectors(
-                accuracy, eigenvalueScalingFactor, true)[0].ToVector();
-
-            Plane p = new Plane(med.ToVector(), normal);
-            return p;
+            Cuboid cub = Cuboid.BoundingBoxFromPCA(pts, accuracy, eigenvalueScalingFactor);
+            return cub.MainPlanes()[2];
         }
         /// <summary>
         /// Recalculates the distance between the Plane and origin. This
