@@ -806,6 +806,9 @@ namespace TuryUtilCs.Mathmatics
                         throw new NotImplementedException(
                             "Scaling of eigenvectors has only been implemented for 3x3-Matrices.");
                     }
+                    
+                    // scale the eigenvectors to the length of
+                    // their corresponding eigenvalues
                     Vector tmpVec = vectors[a].ToVector();
                     tmpVec = tmpVec.Normalize().MultiplySkalar(eigenvalues[a]);
                     vectors[a] = new Matrix(tmpVec);

@@ -262,9 +262,13 @@ namespace TuryUtilCs.Mathmatics.Geometry
         /// not 1.
         /// </param>
         /// <returns>best fitting Plane</returns>
-        public static Plane NewFromPrincipalComponentAnalysis(Point[] pts, int accuracy, int eigenvalueScalingFactor)
+        public static Plane NewFromPrincipalComponentAnalysis(
+            Point[] pts, int accuracy, int eigenvalueScalingFactor)
         {
             Cuboid cub = Cuboid.BoundingBoxFromPCA(pts, accuracy, eigenvalueScalingFactor);
+
+            // The greatest main plane of the bounding box has the shortes normal vector.
+            // It's normal is also the normal of the plane fitting the point set best.
             return cub.MainPlanes()[2];
         }
         /// <summary>
