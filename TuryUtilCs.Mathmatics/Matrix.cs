@@ -125,7 +125,7 @@ namespace TuryUtilCs.Mathmatics
         public Matrix(double[] v)
         {
             _entries = new double[v.Length, 1];
-            for (int i = 0; i<v.Length; i++)
+            for (int i = 0; i < v.Length; i++)
             {
                 this[i, 0] = v[i];
             }
@@ -552,7 +552,7 @@ namespace TuryUtilCs.Mathmatics
         {
             return Multiply(new Matrix(v).Transposed(), m);
         }
-        
+
         /// <summary>
         /// Calculates the Eigenvectors of the matrix.
         /// The accuracy of the calculation will be set to
@@ -603,8 +603,8 @@ namespace TuryUtilCs.Mathmatics
         /// </param>
         /// <returns>Array(Length = 3) of eigenvalues.</returns>
         protected double[] EigenvaluesOf3x3(int accuracy)
-        { 
-            
+        {
+
             if (Rows != 3)
             {
                 throw new ArgumentException(
@@ -717,7 +717,7 @@ namespace TuryUtilCs.Mathmatics
         /// Array of eigenvectors, in the order of the sizes of
         /// their eigenvalues (smallest eigenvalue first, largest last)
         /// </returns>
-        public Matrix[] Eigenvectors(int eigenvalueAccuracy, 
+        public Matrix[] Eigenvectors(int eigenvalueAccuracy,
             int scalingFactor, bool forceFindReal, bool scaleToEigenvalues)
         {
             double[] eigenvalues = null;
@@ -761,7 +761,7 @@ namespace TuryUtilCs.Mathmatics
                 }
                 // if not forced to find real eigenvalues, the first
                 // result will be accepted.
-                else 
+                else
                 {
                     eigenvaluesSatisfying = true;
                 }
@@ -801,12 +801,13 @@ namespace TuryUtilCs.Mathmatics
 
                 if (scaleToEigenvalues)
                 {
-                    if(vectors.Length != 3)
+                    if (vectors.Length != 3)
                     {
                         throw new NotImplementedException(
                             "Scaling of eigenvectors has only been implemented for 3x3-Matrices.");
                     }
-                    
+
+                    //HACK
                     // scale the eigenvectors to the length of
                     // their corresponding eigenvalues
                     Vector tmpVec = vectors[a].ToVector();
@@ -814,6 +815,7 @@ namespace TuryUtilCs.Mathmatics
                     vectors[a] = new Matrix(tmpVec);
                 }
             }
+
             return vectors;
         }
 

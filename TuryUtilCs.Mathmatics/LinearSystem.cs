@@ -158,6 +158,12 @@ namespace TuryUtilCs.Mathmatics
                 if (Values[i, i] != 0) { continue; }
                 if (Values[i, lastCol] != 0)
                 {
+                    // due to the upper two lines, this case occurs when,
+                    // for example one line of the system looks like this:
+                    // ( 0  0  0 | 3 )
+                    // this is not solvable, while a line like
+                    // ( 0  0  0 | 0 )
+                    // would be.
                     throw new Exception("Linear system not solvable!\n" + Values.ToString());
                 }
                 //Console.WriteLine("Infinite amount of solutions. Choosing default = 1.");
@@ -165,7 +171,6 @@ namespace TuryUtilCs.Mathmatics
                 Values[i, lastCol] = 1;
                 //Console.WriteLine(Values.ToString());
             }
-
 
             //4th step: diagonalize matrix
             for (int i = 0; i < Values.Rows; i++)
