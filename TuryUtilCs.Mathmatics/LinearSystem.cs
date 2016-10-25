@@ -83,6 +83,20 @@ namespace TuryUtilCs.Mathmatics
             Values = system;
         }
 
+        //DOKU
+        public double[] Solve(int accuracy)
+        {
+            return SolveGaussElimination(accuracy);
+        }
+
+        //DOKU
+        [Obsolete("The public method SolveGauss() is obsolete, please use Solve() instead.")]
+        public double[] SolveGauss(int accuracy)
+        {
+            return SolveGaussElimination(accuracy);
+        }
+
+
         /// <summary>
         /// Solves the linear equation system using the Gaussion
         /// elimination method.
@@ -107,7 +121,7 @@ namespace TuryUtilCs.Mathmatics
         /// will be rounded to.
         /// </param>
         /// </returns>
-        public double[] SolveGauss(int accuracy)
+        private double[] SolveGaussElimination(int accuracy)
         {
             //helpful to save temporarily
             int lastCol = Values.Columns - 1;

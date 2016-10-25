@@ -797,7 +797,7 @@ namespace TuryUtilCs.Mathmatics
                 }
                 copy = copy.AddColumn(Columns + 1);
                 vectors[a] = new Matrix(new LinearSystem(copy).
-                    SolveGauss(eigenvalueAccuracy));
+                    Solve(eigenvalueAccuracy));
 
                 if (scaleToEigenvalues)
                 {
