@@ -895,6 +895,12 @@ namespace TuryUtilCs.Mathmatics
                     copy[i, i] -= eigenvalues[a];
                 }
                 copy = copy.AddColumn(Columns + 1);
+
+                // when searching for eigenvectors, the linear system
+                // always has an infinite number of solutions. so, I
+                // set one single entry of the right column to 1
+                copy[copy.Rows - 1, copy.Columns - 1] = 1;
+
                 vectors[a] = new Matrix(new LinearSystem(copy).
                     Solve(eigenvalueAccuracy));
 
