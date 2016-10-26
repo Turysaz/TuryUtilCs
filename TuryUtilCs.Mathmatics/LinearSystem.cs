@@ -83,6 +83,23 @@ namespace TuryUtilCs.Mathmatics
             Values = system;
         }
 
+        //DOKU
+        public double[] Solve(int accuracy)
+        {
+            //TODO Choose solving algorithm based on
+            // a parameter or based on the properties of 
+            // the system.
+            //return SolveGaussElimination(accuracy);
+            return SolveCramersRule();
+        }
+
+        //DOKU
+        [Obsolete("The public method SolveGauss() is obsolete, please use Solve() instead.")]
+        public double[] SolveGauss(int accuracy)
+        {
+            return SolveGaussElimination(accuracy);
+        }
+
         /// <summary>
         /// Solves the linear equation system using the Gaussion
         /// elimination method.
@@ -107,7 +124,7 @@ namespace TuryUtilCs.Mathmatics
         /// will be rounded to.
         /// </param>
         /// </returns>
-        public double[] SolveGauss(int accuracy)
+        private double[] SolveGaussElimination(int accuracy)
         {
             //helpful to save temporarily
             int lastCol = Values.Columns - 1;
@@ -158,6 +175,12 @@ namespace TuryUtilCs.Mathmatics
                 if (Values[i, i] != 0) { continue; }
                 if (Values[i, lastCol] != 0)
                 {
+                    // due to the upper two lines, this case occurs when,
+                    // for example one line of the system looks like this:
+                    // ( 0  0  0 | 3 )
+                    // this is not solvable, while a line like
+                    // ( 0  0  0 | 0 )
+                    // would be.
                     throw new Exception("Linear system not solvable!\n" + Values.ToString());
                 }
                 //Console.WriteLine("Infinite amount of solutions. Choosing default = 1.");
@@ -165,7 +188,6 @@ namespace TuryUtilCs.Mathmatics
                 Values[i, lastCol] = 1;
                 //Console.WriteLine(Values.ToString());
             }
-
 
             //4th step: diagonalize matrix
             for (int i = 0; i < Values.Rows; i++)
@@ -202,6 +224,26 @@ namespace TuryUtilCs.Mathmatics
             }
 
             return result;
+        }
+
+        //DOKU
+        private double[] SolveCramersRule()
+        {
+            //DOKU Describe mathmatics behind cramers rule
+            double[] ret = new double[Values.Rows];
+
+            Matrix A = Values.DeleteColumn(Values.Columns - 1);
+            Matrix rightCol = Values.PickColumn(Values.Columns - 1);
+            double detA = A.Determinant();
+
+            for(int col = 0; col < Values.Rows; col++)
+            {
+                Matrix ai = A.DeleteColumn(col);
+                ai = ai.InsertColumns(col, rightCol);
+                double detAi = ai.Determinant();
+                ret[col] = detAi / detA;
+            }
+            return ret;
         }
     }
 }
