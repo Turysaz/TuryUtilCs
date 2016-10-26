@@ -86,7 +86,11 @@ namespace TuryUtilCs.Mathmatics
         //DOKU
         public double[] Solve(int accuracy)
         {
-            return SolveGaussElimination(accuracy);
+            //TODO Choose solving algorithm based on
+            // a parameter or based on the properties of 
+            // the system.
+            //return SolveGaussElimination(accuracy);
+            return SolveCramersRule();
         }
 
         //DOKU
@@ -95,7 +99,6 @@ namespace TuryUtilCs.Mathmatics
         {
             return SolveGaussElimination(accuracy);
         }
-
 
         /// <summary>
         /// Solves the linear equation system using the Gaussion
@@ -221,6 +224,26 @@ namespace TuryUtilCs.Mathmatics
             }
 
             return result;
+        }
+
+        //DOKU
+        private double[] SolveCramersRule()
+        {
+            //DOKU Describe mathmatics behind cramers rule
+            double[] ret = new double[Values.Rows];
+
+            Matrix A = Values.DeleteColumn(Values.Columns - 1);
+            Matrix rightCol = Values.PickColumn(Values.Columns - 1);
+            double detA = A.Determinant();
+
+            for(int col = 0; col < Values.Rows; col++)
+            {
+                Matrix ai = A.DeleteColumn(col);
+                ai = ai.InsertColumns(col, rightCol);
+                double detAi = ai.Determinant();
+                ret[col] = detAi / detA;
+            }
+            return ret;
         }
     }
 }

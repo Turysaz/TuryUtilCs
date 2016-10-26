@@ -165,6 +165,45 @@ namespace TuryUtilCs.Mathmatics
             return extendedMatrix;
         }
 
+        //DOKU
+        public Matrix InsertRows(int index, Matrix insert)
+        {
+            if (insert.Columns != this.Columns)
+            {
+                throw new MatrixException(
+                    "Cannot insert a matrix that has more or less columns than the original matrix!");
+            }
+
+            if (index < 0 || index > this.Rows)
+            {
+                throw new MatrixException(
+                    "Invalid index! Cannot insert rows here!");
+            }
+
+            int extRows = this.Rows + insert.Rows;
+            Matrix extended = new Matrix(extRows, this.Columns);
+            for (int r = 0; r < extRows; r++)
+            {
+                for (int c = 0; c < Columns; c++)
+                {
+                    if (r < index)
+                    {
+                        extended[r, c] = this[r, c];
+                    }
+                    else if (r >= index + insert.Rows)
+                    {
+                        extended[r, c] = this[r - insert.Rows, c];
+                    }
+                    else
+                    {
+                        extended[r, c] = insert[r - index, c];
+                    }
+                }
+            }
+            return extended;
+
+        }
+
         ///<summary>
         /// Deletes a row of the matrix.
         /// Returns a copy
@@ -194,6 +233,17 @@ namespace TuryUtilCs.Mathmatics
             return shortenedMatrix;
         }
 
+        //DOKU
+        public Matrix PickRow(int index)
+        {
+            //TODO unit testing
+            Matrix result = new Matrix(1, this.Columns);
+            for (int i = 0; i < Columns; i++)
+            {
+                result[0, i] = this[index, i];
+            }
+            return result;
+        }
         /// <summary>
         /// Adds a column to the Matrix.
         /// Returns a copy!
@@ -220,6 +270,43 @@ namespace TuryUtilCs.Mathmatics
             return extendedMatrix;
         }
 
+        //DOKU
+        public Matrix InsertColumns(int index, Matrix insert)
+        {
+            if (insert.Rows != this.Rows)
+            {
+                throw new MatrixException(
+                    "Cannot insert a matrix that has more or less rows than the original matrix!");
+            }
+
+            if (index < 0 || index > this.Columns)
+            {
+                throw new MatrixException(
+                    "Invalid index! Cannot insert columns here!");
+            }
+
+            int extCols = this.Columns + insert.Columns;
+            Matrix extended = new Matrix(this.Rows, extCols);
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < extCols; c++)
+                {
+                    if (c < index)
+                    {
+                        extended[r, c] = this[r, c];
+                    }
+                    else if (c >= index + insert.Columns)
+                    {
+                        extended[r, c] = this[r, c - insert.Columns];
+                    }
+                    else
+                    {
+                        extended[r, c] = insert[r, c - index];
+                    }
+                }
+            }
+            return extended;
+        }
 
         ///<summary>
         /// Deletes a column of the matrix.
@@ -244,6 +331,18 @@ namespace TuryUtilCs.Mathmatics
                 }
             }
             return shortenedMatrix;
+        }
+
+        //DOKU
+        public Matrix PickColumn(int index)
+        {
+            //TODO unit testing
+            Matrix result = new Matrix(this.Rows, 1);
+            for (int i = 0; i<Rows; i++)
+            {
+                result[i, 0] = this[i, index];
+            }
+            return result;
         }
 
         /// <summary>

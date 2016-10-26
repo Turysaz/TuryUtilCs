@@ -49,7 +49,7 @@ namespace TuryUtilCs.Mathmatics.Tests
         }
 
         [TestMethod()]
-        public void SolveGauss_Test()
+        public void Solve_Test()
         {
             Random rand = new Random();
             // different sizes of linear systems
@@ -66,7 +66,7 @@ namespace TuryUtilCs.Mathmatics.Tests
                         coeff[i] = (rand.NextDouble() - 0.5) * (n + 1);
                     }
                     LinearSystem system = GenerateLinearSystem(coeff);
-                    double[] results = system.SolveGauss(15);
+                    double[] results = system.Solve(15);
 
                     for (int i = 0; i < n; i++)
                     {

@@ -664,7 +664,7 @@ namespace TuryUtilCs.Mathmatics.Tests
 
             Vector v = new Vector(1, 2, 3);
             Matrix m = Matrix.Multiply(v, _testA_3x3);
-            double[] expectedValues = new double[] { 30, 36, 42};
+            double[] expectedValues = new double[] { 30, 36, 42 };
 
             int k = 0;
             for (int i = 0; i < m.Rows; i++)
@@ -689,15 +689,15 @@ namespace TuryUtilCs.Mathmatics.Tests
             tempsort.Sort();
             actual = tempsort.ToArray();
 
-            double[] expected = new double[] { -4.403, -1.038, 14.441};
+            double[] expected = new double[] { -4.403, -1.038, 14.441 };
 
-            for (int i = 0; i<expected.Length; i++)
+            for (int i = 0; i < expected.Length; i++)
             {
                 double a = actual[i];
                 double e = expected[i];
                 Assert.AreEqual(e, a, 0.01);
             }
-       }
+        }
 
         [TestMethod()]
         public void Eigenvectors_Test()
@@ -711,7 +711,7 @@ namespace TuryUtilCs.Mathmatics.Tests
             expectedList[1] = new Vector(-1.501, 0.058, 1);
             expectedList[2] = new Vector(0.257, 0.455, 1);
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Vector ev = actualList[i].ToVector();
                 double angle = Vector.AngleBetween(expectedList[i], ev);
@@ -757,5 +757,35 @@ namespace TuryUtilCs.Mathmatics.Tests
             Assert.AreEqual(expected.Z, v.Z);
         }
 
+        [TestMethod()]
+        public void InsertRows_Test()
+        {
+            //TODO implement test
+            throw new NotImplementedException();
+
+            GenerateTestMatrices();
+            //a,c
+            //a,d
+
+            Matrix result;
+
+            result = _testA_3x3.InsertRows(1, _testC_2x3);
+
+            result = _testA_3x3.InsertRows(3, _testD_3x3);
+        }
+
+        [TestMethod()]
+        public void InsertColumns_Test()
+        {
+            //TODO implement test
+            throw new NotImplementedException();
+            
+            GenerateTestMatrices();
+
+            Matrix result;
+
+            result = _testA_3x3.InsertColumns(1, _testB_3x4);
+            result = _testA_3x3.InsertColumns(3, _testD_3x3);
+        }
     }
 }
