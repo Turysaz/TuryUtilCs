@@ -184,6 +184,17 @@ namespace TuryUtilCs.Mathmatics.Geometry
         }
         #endregion
 
+        //DOKU
+        public Vector[] SortedDimensions()
+        {
+            List<Vector> dimensionsForSort = _dimensions.ToList();
+            dimensionsForSort.Sort(delegate (Vector v1, Vector v2)
+            {
+                return (v1.Length().CompareTo(v2.Length()));
+            });
+            return dimensionsForSort.ToArray();
+        }
+
         //HOT HACK
         /// <summary>
         /// Returns the "main" planes of the box.
@@ -194,14 +205,10 @@ namespace TuryUtilCs.Mathmatics.Geometry
         public Plane[] MainPlanes()
         {
             Plane[] mainPlanes = new Plane[3];
-            List<Vector> dimensionsForSort = _dimensions.ToList();
-            dimensionsForSort.Sort(delegate (Vector v1, Vector v2)
-            {
-                return (v1.Length().CompareTo(v2.Length()));
-            });
-            mainPlanes[0] = new Plane(Center.ToVector(), dimensionsForSort[2]);
-            mainPlanes[1] = new Plane(Center.ToVector(), dimensionsForSort[1]);
-            mainPlanes[2] = new Plane(Center.ToVector(), dimensionsForSort[0]);
+            Vector[] sortedDimensions = SortedDimensions();
+            mainPlanes[0] = new Plane(Center.ToVector(), sortedDimensions[2]);
+            mainPlanes[1] = new Plane(Center.ToVector(), sortedDimensions[1]);
+            mainPlanes[2] = new Plane(Center.ToVector(), sortedDimensions[0]);
             return mainPlanes;
         }
     }
