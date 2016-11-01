@@ -126,7 +126,7 @@ namespace TuryUtilCs.Mathmatics.Geometry
         /// <returns>distance between the points</returns>
         public double DistanceTo(Point p2)
         {
-            return System.Math.Sqrt(SquareDistanceTo(p2));
+            return Math.Sqrt(SquareDistanceTo(p2));
         }
 
         /// <summary>
@@ -136,9 +136,9 @@ namespace TuryUtilCs.Mathmatics.Geometry
         /// <returns>squared distance between the points</returns>
         public double SquareDistanceTo(Point p2)
         {
-            return System.Math.Pow((this.X - p2.X), 2) +
-                System.Math.Pow((this.Y - p2.Y), 2) +
-                System.Math.Pow((this.Z - p2.Z), 2);
+            return Math.Pow((this.X - p2.X), 2) +
+                Math.Pow((this.Y - p2.Y), 2) +
+                Math.Pow((this.Z - p2.Z), 2);
 
         }
 
@@ -312,9 +312,9 @@ namespace TuryUtilCs.Mathmatics.Geometry
             }
             else
             {
-                return ("Point: (" + System.Math.Round(X, 2) + "; " +
-                    System.Math.Round(Y, 2) + "; " +
-                    System.Math.Round(Z, 2) + ")");
+                return ("Point: (" + Math.Round(X, 2) + "; " +
+                    Math.Round(Y, 2) + "; " +
+                    Math.Round(Z, 2) + ")");
             }
         }
     }
